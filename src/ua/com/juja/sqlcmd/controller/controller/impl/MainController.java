@@ -1,31 +1,24 @@
 package ua.com.juja.sqlcmd.controller.controller.impl;
 
-import org.apache.log4j.Logger;
 import ua.com.juja.sqlcmd.controller.command.Command;
 import ua.com.juja.sqlcmd.controller.controller.AbstractController;
-import ua.com.juja.sqlcmd.controller.controller.Controller;
 import ua.com.juja.sqlcmd.exception.JuJaSqlCmdException;
 import ua.com.juja.sqlcmd.exception.imp.ExitException;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
-import java.util.Collection;
-import java.util.HashSet;
 
-public class MainController extends AbstractController implements Controller {
+public class MainController extends AbstractController {
 
 
-    private Collection<Command> commandCollection = new HashSet<>();
+    private Command[] commandCollection;
 
-    public MainController(View view, DatabaseManager manager) {
+    public MainController(View view, DatabaseManager manager, Command[] commands) {
         this.view = view;
         this.manager = manager;
+        this.commandCollection=commands;
     }
 
-    @Override
-    public void addCommand(Command command) {
-        this.commandCollection.add(command);
-    }
 
     @Override
     public void run() {
@@ -33,13 +26,12 @@ public class MainController extends AbstractController implements Controller {
             greeting();
             while (true) {
                 reqest = view.read();
-                if (reqest != null && !reqest.isEmpty()) {
+                if (!reqest.isEmpty()) {
                     for (Command iter : commandCollection) {
                         if (iter.canProcess(reqest)) {
                             LOG.debug(iter.getClass());
                             iter.process(reqest);
                         }
-
                     }
                 }
                 commandLine();
@@ -47,7 +39,7 @@ public class MainController extends AbstractController implements Controller {
 
         } catch (ExitException e) {
             //TODO: close connection
-            System.exit(10);
+            System.exit(0);
         } catch (JuJaSqlCmdException e) {
             LOG.error(e.getMessage());
         }

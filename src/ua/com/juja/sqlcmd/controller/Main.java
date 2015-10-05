@@ -14,24 +14,16 @@ public class Main {
         View view = new Console();
         DatabaseManager manager = new JDBCDatabaseManager();
 
-        Command commandHelp = new Help(view);
-        Command commandExit = new Exit(view);
-        Command commandConnect = new Connect(view);
-        Command commandCreate = new Create(view);
-        Command commandFind = new Find(view);
-        Command commandTables = new Tables(view);
-        Command commandClear = new Clear(manager, view);
-
-
-        MainController controller = new MainController(view, manager);
-        controller.addCommand(commandHelp);
-        controller.addCommand(commandExit);
-        controller.addCommand(commandFind);
-        controller.addCommand(commandCreate);
-        controller.addCommand(commandConnect);
-        controller.addCommand(commandTables);
-        controller.addCommand(commandClear);
-
+        Command[] commands = new Command[]{
+                new Help(view),
+                new Exit(view),
+                new Connect(view),
+                new Create(view),
+                new Find(view),
+                new Tables(view),
+                new Clear(manager, view)
+        };
+        MainController controller = new MainController(view, manager, commands);
 
         controller.run();
     }

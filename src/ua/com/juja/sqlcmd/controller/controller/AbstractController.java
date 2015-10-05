@@ -11,6 +11,8 @@ public abstract class AbstractController {
     protected String reqest;
     protected DatabaseManager manager;
 
+    public abstract void run();
+
     protected void greeting() {
         StringBuilder sb = new StringBuilder();
         sb.append("*******************************************" + "\n");
@@ -20,7 +22,6 @@ public abstract class AbstractController {
         sb.append("Commando \"exit\" - exit from the program" + "\n");
         sb.append("\n");
         sb.append("Enter commando and then press enter.........." + "\n");
-        sb.append("\n");
         view.write(sb.toString());
     }
 
