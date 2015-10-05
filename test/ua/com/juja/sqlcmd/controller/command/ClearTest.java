@@ -1,10 +1,9 @@
 package ua.com.juja.sqlcmd.controller.command;
 
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import ua.com.juja.sqlcmd.model.DataSet;
+import ua.com.juja.sqlcmd.controller.command.impl.Clear;
+import ua.com.juja.sqlcmd.exception.JuJaSqlCmdException;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
@@ -31,7 +30,7 @@ public class ClearTest {
     }
 
     @Test
-    public void testClearTable() {
+    public void testClearTable() throws JuJaSqlCmdException {
         // given
 
         // when
@@ -62,7 +61,7 @@ public class ClearTest {
     }
 
     @Test
-    public void testValidationErrorWhenCountParametersIsLessThan2() {
+    public void testValidationErrorWhenCountParametersIsLessThan2() throws JuJaSqlCmdException {
         // when
         try {
             command.process("clear");
@@ -74,7 +73,7 @@ public class ClearTest {
     }
 
     @Test
-    public void testValidationErrorWhenCountParametersIsMoreThan2() {
+    public void testValidationErrorWhenCountParametersIsMoreThan2() throws JuJaSqlCmdException {
         // when
         try {
             command.process("clear|table|qwe");

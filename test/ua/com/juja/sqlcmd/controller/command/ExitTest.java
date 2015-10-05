@@ -2,6 +2,9 @@ package ua.com.juja.sqlcmd.controller.command;
 
 import org.junit.Test;
 import org.mockito.Mockito;
+import ua.com.juja.sqlcmd.controller.command.impl.Exit;
+import ua.com.juja.sqlcmd.exception.JuJaSqlCmdException;
+import ua.com.juja.sqlcmd.exception.imp.ExitException;
 import ua.com.juja.sqlcmd.view.View;
 
 import static junit.framework.TestCase.assertTrue;
@@ -39,7 +42,7 @@ public class ExitTest {
     }
 
     @Test
-    public void testProcessExitCommand_thowsExitException() {
+    public void testProcessExitCommand_thowsExitException() throws JuJaSqlCmdException {
         // given
         Command command = new Exit(view);
 

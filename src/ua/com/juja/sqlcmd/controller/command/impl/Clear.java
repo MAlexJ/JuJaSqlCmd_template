@@ -1,15 +1,16 @@
-package ua.com.juja.sqlcmd.controller.command;
+package ua.com.juja.sqlcmd.controller.command.impl;
 
+import ua.com.juja.sqlcmd.controller.command.AbstractCommand;
+import ua.com.juja.sqlcmd.controller.command.Command;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
 /**
  * Created by oleksandr.baglai on 28.08.2015.
  */
-public class Clear implements Command {
+public class Clear extends AbstractCommand implements Command {
 
     private DatabaseManager manager;
-    private View view;
 
     public Clear(DatabaseManager manager, View view) {
         this.manager = manager;
