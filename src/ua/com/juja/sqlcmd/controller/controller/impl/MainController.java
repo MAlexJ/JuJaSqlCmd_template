@@ -9,34 +9,31 @@ import ua.com.juja.sqlcmd.view.View;
 
 
 public class MainController extends AbstractController {
-
-
+    private String request;
     private Command[] commandCollection;
 
     public MainController(View view, DatabaseManager manager, Command[] commands) {
         this.view = view;
         this.manager = manager;
-        this.commandCollection=commands;
+        this.commandCollection = commands;
     }
-
 
     @Override
     public void run() {
         try {
             greeting();
             while (true) {
-                reqest = view.read();
-                if (!reqest.isEmpty()) {
+                request = view.read();
+                if (!request.isEmpty()) {
                     for (Command iter : commandCollection) {
-                        if (iter.canProcess(reqest)) {
+                        if (iter.canProcess(request)) {
                             LOG.debug(iter.getClass());
-                            iter.process(reqest);
+                            iter.process(request);
                         }
                     }
                 }
                 commandLine();
             }
-
         } catch (ExitException e) {
             //TODO: close connection
             System.exit(0);

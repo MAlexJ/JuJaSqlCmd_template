@@ -23,6 +23,7 @@ public class Main {
                 new Tables(view),
                 new Clear(manager, view)
         };
+
         MainController controller = new MainController(view, manager, commands);
 
         controller.run();

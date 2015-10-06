@@ -1,4 +1,7 @@
-package ua.com.juja.sqlcmd.dao;
+package ua.com.juja.sqlcmd.dao.test;
+
+import ua.com.juja.sqlcmd.dao.CustomerDAO;
+import ua.com.juja.sqlcmd.dao.DAOFactory;
 
 /**
  * Created by ION on 07.10.2015.

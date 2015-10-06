@@ -8,7 +8,6 @@ import ua.com.juja.sqlcmd.view.View;
 public abstract class AbstractController {
     public static final Logger LOG = Logger.getLogger(AbstractController.class);
     protected View view;
-    protected String reqest;
     protected DatabaseManager manager;
 
     public abstract void run();
