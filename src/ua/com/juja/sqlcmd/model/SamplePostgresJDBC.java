@@ -15,6 +15,9 @@ public class SamplePostgresJDBC {
 
         // insert
         Statement stmt = connection.createStatement();
+
+
+
         stmt.executeUpdate("INSERT INTO public.user (name, password)" +
                 "VALUES ('Stiven', 'Pupkin')");
         stmt.close();
