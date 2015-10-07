@@ -17,25 +17,25 @@ public class PostgresSqlCustomerDAOImpl implements CustomerDAO {
 
     @Override
     public Collection selectAllTablesCustomer() {
-        System.out.println("public Collection selectAllTablesCustomer()");
+
         return null;
     }
 
     @Override
     public boolean deleteTableCustomer(String tablName) {
-        System.out.println("public boolean deleteTableCustomer(String tablName)");
+
         return false;
     }
 
     @Override
     public int insertCustomer(String tableName, Map<String, String> value) {
-        System.out.println("public int insertCustomer(String tableName, Map<String, String> value)");
+
         return 0;
     }
 
     @Override
     public Collection findCustomer(String tablName) {
-        System.out.println(" public Collection findCustomer(String tablName) ");
+
         return null;
     }
 }
