@@ -4,27 +4,45 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class TestDao {
+
+    //Check the behavior of the method invocation
     @Test
     public void methodInvocationCustomerTest() {
-        //given
+        //Preparation
         DAOFactory daoFactory = DAOFactory.getDAOFactory(DAOFactory.POSTGRES);
         CustomerDAO dao = mock(CustomerDAO.class);
 
-        //when
+        //Perform
         dao.selectAllTablesCustomer();
         dao.findCustomer("find");
         dao.deleteTableCustomer("delete");
-        dao.insertCustomer("tableNAme",new HashMap<>());
+        dao.insertCustomer("tableNAme", new HashMap<>());
 
-        //then
+        //Compare
         verify(dao).selectAllTablesCustomer();
         verify(dao).findCustomer("find");
         verify(dao).deleteTableCustomer("delete");
-        verify(dao).insertCustomer("tableNAme",new HashMap<>());
+        verify(dao).insertCustomer("tableNAme", new HashMap<>());
+
+    }
+
+    @Test
+    public void returnTypeCallMethod(){
+        //Preparation
+        DAOFactory daoFactory = DAOFactory.getDAOFactory(DAOFactory.POSTGRES);
+        CustomerDAO dao = daoFactory.getCustomerDAO();
+
+        //Verification
+        assertEquals(null,dao.selectAllTablesCustomer());
+        assertEquals(null,dao.findCustomer("find"));
+        assertEquals(false,dao.deleteTableCustomer("delete"));
+        assertEquals(0,dao.insertCustomer("tableNAme", new HashMap<>()));
+
 
     }
 

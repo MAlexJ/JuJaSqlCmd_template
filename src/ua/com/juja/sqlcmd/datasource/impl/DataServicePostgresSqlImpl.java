@@ -10,10 +10,8 @@ public class DataServicePostgresSqlImpl implements DataServicePostgresSql {
     //Connectin to DB
 
     public DataServicePostgresSqlImpl() {
-        System.err.println("Connection DB PSQL");
+
     }
-
-
 
 
 }
