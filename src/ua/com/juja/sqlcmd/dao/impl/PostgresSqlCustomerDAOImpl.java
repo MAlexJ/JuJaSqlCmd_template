@@ -1,7 +1,6 @@
 package ua.com.juja.sqlcmd.dao.impl;
 
 import ua.com.juja.sqlcmd.dao.CustomerDAO;
-import ua.com.juja.sqlcmd.datasource.DataServicePostgresSql;
 import ua.com.juja.sqlcmd.datasource.impl.DataServicePostgresSqlImpl;
 
 import java.util.Collection;
