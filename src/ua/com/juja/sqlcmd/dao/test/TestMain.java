@@ -30,6 +30,11 @@ public class TestMain {
 
         DataSet dataSet = new DataSetImpl();
         dataSet.put("Alex", "2222");
+        dataSet.put("Alex2", "3333");
+        dataSet.put("Alex3", "44444");
+        dataSet.put("Alex4", "5555");
+        dataSet.put("Alex5", "6666");
+        dataSet.put("Alex6", "22277772");
         dao.create("account", dataSet);
 
         System.out.println("print ->    Collection<DataSet> collection2 = dao.find(\"account\");");
@@ -38,24 +43,22 @@ public class TestMain {
         for (DataSet dataSet2 : collection2) {
             System.out.print(dataSet2.getNames() + "  ");
             System.out.println(dataSet2.getValues());
-
         }
 
-
-        System.out.println("dao.clear(\"account\");");
-        dao.clear("account");
-        System.out.println();
-
-
-        Collection<DataSet> collection3 = dao.find("account");
-        for (DataSet dataSet3 : collection3) {
-            System.out.print(dataSet3.getNames() + "  ");
-            System.out.println(dataSet3.getValues());
-
-        }
-        System.out.println("print ->    Collection<DataSet> collection2 = dao.find(\"account\");");
-        System.out.println("print ->    collection3.isEmpty() " + collection3.isEmpty());
-        System.out.println("exit");
+//        System.out.println("dao.clear(\"account\");");
+//        dao.clear("account");
+//        System.out.println();
+////
+//
+//        Collection<DataSet> collection3 = dao.find("account");
+//        for (DataSet dataSet3 : collection3) {
+//            System.out.print(dataSet3.getNames() + "  ");
+//            System.out.println(dataSet3.getValues());
+//
+//        }
+//        System.out.println("print ->    Collection<DataSet> collection2 = dao.find(\"account\");");
+//        System.out.println("print ->    collection3.isEmpty() " + collection3.isEmpty());
+//        System.out.println("exit");
 
     }
 }

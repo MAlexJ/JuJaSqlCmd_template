@@ -1587,13 +1587,6 @@
       <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
-    <table name="test" schema="public" catalog="sqlcmd" type="TABLE">
-      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgndGVzdF9pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
-      <column name="name" sqlType="varchar" precision="20" scale="0" nullable="true" jdbcType="12"/>
-      <column name="password" sqlType="varchar" precision="20" scale="0" nullable="true" jdbcType="12"/>
-      <column name="column_4" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="test_pkey" columns="id"/>
-    </table>
     <table name="test_id_seq" schema="public" catalog="sqlcmd" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>

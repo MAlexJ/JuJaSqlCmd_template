@@ -41,4 +41,9 @@ public class DataSetImpl implements DataSet {
 
     }
 
+    @Override
+    public Set<Map.Entry<String, Object>> getSetEntry() {
+        return this.map.entrySet();
+    }
+
 }

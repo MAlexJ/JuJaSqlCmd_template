@@ -8,10 +8,7 @@ import ua.com.juja.sqlcmd.model.DataSetImpl;
 
 import java.sql.*;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class PostgresJDBCImpl implements PostgresJDBC, Constants {
     private static final Logger LOG = Logger.getLogger(PostgresJDBCImpl.class);
@@ -26,13 +23,25 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
         try {
             Class.forName(DRIVER_POSTGRES);
             connection = DriverManager.getConnection(CONNECTING_URL + database, userName, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            LOG.error("PostgresJDBCImpl(String database, String userName, String password) -> " + e.getMessage());
         }
     }
 
+    @Override
+    public boolean close() {
+        boolean flag = false;
+        try {
+            if (connection != null) {
+                connection.close();
+                flag = true;
+            }
+
+        } catch (SQLException e) {
+            LOG.error("boolean close() -> " + e.getMessage());
+        }
+        return flag;
+    }
 
     @Override
     public List<DataSet> getTableData(String tableName) {
@@ -47,7 +56,7 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
                 dataSet.put(name, password);
                 list.add(dataSet);
             }
-
+            resultSet.close();
         } catch (SQLException e) {
             LOG.error("List<DataSet> getTableData(String tableName) -> " + e.getMessage());
         }
@@ -63,6 +72,7 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
             while (resultSet.next()) {
                 result.add(resultSet.getString("table_name"));
             }
+            resultSet.close();
         } catch (SQLException e) {
             LOG.error("Set<String> getTableNames() -> " + e.getMessage());
         }
@@ -73,13 +83,14 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
     public void create(String tableName, DataSet input) {
         try {
             insertTable = connection.prepareStatement("INSERT INTO public." + tableName + " (name, password) VALUES (? , ?)");
-            insertTable.setString(1, input.getNames().toString());
-            insertTable.setString(2, input.getValues().toString());
-            insertTable.executeUpdate();
+            for (Map.Entry<String, Object> iter : input.getSetEntry()) {
+                insertTable.setString(1, iter.getKey());
+                insertTable.setString(2, iter.getValue().toString());
+                insertTable.executeUpdate();
+            }
         } catch (SQLException e) {
             LOG.error("create(String tableName, DataSet input) -> " + e.getMessage());
         }
-
     }
 
     @Override
@@ -90,6 +101,5 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
         } catch (SQLException e) {
             LOG.error("clear(String tableName) -> " + e.getMessage());
         }
-
     }
 }

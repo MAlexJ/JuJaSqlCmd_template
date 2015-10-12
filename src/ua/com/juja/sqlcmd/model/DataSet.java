@@ -2,6 +2,7 @@ package ua.com.juja.sqlcmd.model;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -17,4 +18,6 @@ public interface DataSet {
     Object get(String name);
 
     void updateFrom(DataSet newValue);
+
+    Set<Map.Entry<String, Object>> getSetEntry();
 }

@@ -16,4 +16,6 @@ public interface PostgresJDBC {
 
     void clear(String tableName);
 
+    public boolean close();
+
 }
