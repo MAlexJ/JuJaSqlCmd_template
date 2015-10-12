@@ -1,7 +1,19 @@
 package ua.com.juja.sqlcmd.datasource;
 
-/**
- * Created by ION on 07.10.2015.
- */
+
+import ua.com.juja.sqlcmd.model.DataSet;
+
+import java.util.List;
+import java.util.Set;
+
 public interface PostgresJDBC {
+
+    List<DataSet> getTableData(String tableName);
+
+    Set<String> getTableNames();
+
+    void create(String tableName, DataSet input);
+
+    void clear(String tableName);
+
 }

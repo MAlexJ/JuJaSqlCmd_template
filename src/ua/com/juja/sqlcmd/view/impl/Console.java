@@ -1,4 +1,6 @@
-package ua.com.juja.sqlcmd.view;
+package ua.com.juja.sqlcmd.view.impl;
+
+import ua.com.juja.sqlcmd.view.View;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;

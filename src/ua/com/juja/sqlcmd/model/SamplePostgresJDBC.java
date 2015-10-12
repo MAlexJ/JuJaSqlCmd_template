@@ -21,7 +21,7 @@ public class SamplePostgresJDBC {
 
         // select
         stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM public.user WHERE id > 10");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM public.user WHERE id < 10");
         while (rs.next()) {
             System.out.println("id:" + rs.getString("id"));
             System.out.println("name:" + rs.getString("name"));
