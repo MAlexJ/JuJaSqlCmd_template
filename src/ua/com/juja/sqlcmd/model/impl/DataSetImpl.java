@@ -1,9 +1,11 @@
-package ua.com.juja.sqlcmd.model;
+package ua.com.juja.sqlcmd.model.impl;
+
+import ua.com.juja.sqlcmd.model.DataSet;
 
 import java.util.*;
 
 public class DataSetImpl implements DataSet {
-    private Map<String, Object> map = new HashMap<>();
+    private Map<String, Object> map = new LinkedHashMap<>();
 
     @Override
     public void put(String name, Object value) {
@@ -34,16 +36,11 @@ public class DataSetImpl implements DataSet {
 
     @Override
     public void updateFrom(DataSet newValue) {
-        map.clear();
-        DataSet dataSet = new DataSetImpl();
+        this.map.clear();
 
-        // TODO STRATEGY
-
+        // TODO FIX
+        this.map.put("name", "Pup");
+        this.map.put("password", "pass2");
+        this.map.put("id", 13);
     }
-
-    @Override
-    public Set<Map.Entry<String, Object>> getSetEntry() {
-        return this.map.entrySet();
-    }
-
 }

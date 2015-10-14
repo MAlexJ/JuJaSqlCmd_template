@@ -1,4 +1,4 @@
-package ua.com.juja.sqlcmd.model;
+package ua.com.juja.sqlcmd.model.sample;
 
 import java.sql.*;
 import java.util.Random;

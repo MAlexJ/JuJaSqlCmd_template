@@ -10,12 +10,18 @@ public interface PostgresJDBC {
 
     List<DataSet> getTableData(String tableName);
 
-    Set<String> getTableNames();
+    boolean close();
 
-    void create(String tableName, DataSet input);
+    Set<String> getTableNames();
 
     void clear(String tableName);
 
-    public boolean close();
+    void create(String tableName, DataSet input);
+
+    void update(String tableName, int id, DataSet newValue);
+
+    Set<String> getTableColumns(String tableName);
+
+    boolean isConnected();
 
 }

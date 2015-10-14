@@ -3,7 +3,7 @@ package ua.com.juja.sqlcmd.dao.test;
 import ua.com.juja.sqlcmd.dao.CustomerDAO;
 import ua.com.juja.sqlcmd.dao.DAOFactory;
 import ua.com.juja.sqlcmd.model.DataSet;
-import ua.com.juja.sqlcmd.model.DataSetImpl;
+import ua.com.juja.sqlcmd.model.impl.DataSetImpl;
 
 import java.util.Collection;
 
@@ -18,7 +18,7 @@ public class TestMain {
         dao.connect("sqlcmd", "postgres", "postgres");
         System.out.println("dao.getTableNames() -> " + dao.getTableNames() + "\n");
 
-        Collection<DataSet> collection = dao.find("user");
+        Collection<DataSet> collection = dao.getTableData("user");
         for (DataSet dataSet : collection) {
             System.out.print(dataSet.getNames() + "  ");
             System.out.println(dataSet.getValues());
@@ -39,7 +39,7 @@ public class TestMain {
 
         System.out.println("print ->    Collection<DataSet> collection2 = dao.find(\"account\");");
 
-        Collection<DataSet> collection2 = dao.find("account");
+        Collection<DataSet> collection2 = dao.getTableData("account");
         for (DataSet dataSet2 : collection2) {
             System.out.print(dataSet2.getNames() + "  ");
             System.out.println(dataSet2.getValues());

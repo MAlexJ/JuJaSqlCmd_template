@@ -7,6 +7,7 @@ import ua.com.juja.sqlcmd.model.DataSet;
 
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,8 +27,13 @@ public class PostgresSqlCustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Collection<DataSet> find(String tablName) {
+    public List<DataSet> getTableData(String tablName) {
         return this.postgresJDBC.getTableData(tablName);
+    }
+
+    @Override
+    public boolean close() {
+        return postgresJDBC.close();
     }
 
     @Override
@@ -41,7 +47,20 @@ public class PostgresSqlCustomerDAOImpl implements CustomerDAO {
         this.postgresJDBC.create(tableName, input);
     }
 
+    @Override
+    public void update(String tableName, int id, DataSet newValue) {
+        this.postgresJDBC.update(tableName, id, newValue);
+    }
 
+    @Override
+    public Set<String> getTableColumns(String tableName) {
+        return this.postgresJDBC.getTableColumns(tableName);
+    }
+
+    @Override
+    public boolean isConnected() {
+        return this.postgresJDBC.isConnected();
+    }
 
 
 }

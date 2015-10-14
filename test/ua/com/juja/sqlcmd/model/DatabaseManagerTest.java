@@ -2,8 +2,8 @@ package ua.com.juja.sqlcmd.model;
 
 import org.junit.Before;
 import org.junit.Test;
+import ua.com.juja.sqlcmd.model.impl.DataSetImpl;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 

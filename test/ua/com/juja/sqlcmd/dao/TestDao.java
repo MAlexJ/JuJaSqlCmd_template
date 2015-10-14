@@ -1,49 +1,46 @@
 package ua.com.juja.sqlcmd.dao;
 
+import org.junit.Before;
 import org.junit.Test;
+import ua.com.juja.sqlcmd.model.DataSet;
 
-import java.util.HashMap;
-
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class TestDao {
+    DAOFactory daoFactory;
+    CustomerDAO dao;
+    DataSet dataSet;
+    int id;
 
-//    //Check the behavior of the method invocation
-//    @Test
-//    public void methodInvocationCustomerTest() {
-//        //Preparation
-//        DAOFactory daoFactory = DAOFactory.getDAOFactory(DAOFactory.POSTGRES);
-//        CustomerDAO dao = mock(CustomerDAO.class);
-//
-//        //Perform
-//        dao.selectAllTablesCustomer();
-//        dao.find("find");
-//        dao.deleteTableCustomer("delete");
-//        dao.insertCustomer("tableNAme", new HashMap<>());
-//
-//        //Compare
-//        verify(dao).selectAllTablesCustomer();
-//        verify(dao).find("find");
-//        verify(dao).deleteTableCustomer("delete");
-//        verify(dao).insertCustomer("tableNAme", new HashMap<>());
-//
-//    }
-//
-//    @Test
-//    public void returnTypeCallMethod(){
-//        //Preparation
-//        DAOFactory daoFactory = DAOFactory.getDAOFactory(DAOFactory.POSTGRES);
-//        CustomerDAO dao = daoFactory.getCustomerDAO();
-//
-//        //Verification
-//        assertEquals(null,dao.selectAllTablesCustomer());
-//        assertEquals(null,dao.find("find"));
-//        assertEquals(false,dao.deleteTableCustomer("delete"));
-//        assertEquals(0,dao.insertCustomer("tableNAme", new HashMap<>()));
-//
-//
-//    }
+    @Before
+    public void initParam() {
+        this.daoFactory = DAOFactory.getDAOFactory(DAOFactory.POSTGRES);
+        this.dao = mock(CustomerDAO.class);
+        this.dataSet = mock(DataSet.class);
+        this.id = 1;
+    }
 
+    @Test
+    public void methodInvocationCustomerTest() {
+        //Perform
+        dao.connect("DB", "USER", "PASS");
+        dao.getTableNames();
+        dao.getTableData("getTableData");
+        dao.clear("clear");
+        dao.create("create", dataSet);
+        dao.update("update", id, dataSet);
+        dao.getTableColumns("getTableColumns");
+        dao.isConnected();
+
+        //Compare
+        verify(dao).clear("clear");
+        verify(dao).getTableData("getTableData");
+        verify(dao).getTableNames();
+        verify(dao).connect("DB", "USER", "PASS");
+        verify(dao).create("create", dataSet);
+        verify(dao).update("update", id, dataSet);
+        verify(dao).getTableColumns("getTableColumns");
+        verify(dao).isConnected();
+    }
 }

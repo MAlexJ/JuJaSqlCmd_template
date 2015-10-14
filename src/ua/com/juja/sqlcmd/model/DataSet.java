@@ -19,5 +19,4 @@ public interface DataSet {
 
     void updateFrom(DataSet newValue);
 
-    Set<Map.Entry<String, Object>> getSetEntry();
 }

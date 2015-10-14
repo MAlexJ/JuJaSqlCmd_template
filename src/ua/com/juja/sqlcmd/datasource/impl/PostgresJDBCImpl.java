@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import ua.com.juja.sqlcmd.constants.Constants;
 import ua.com.juja.sqlcmd.datasource.PostgresJDBC;
 import ua.com.juja.sqlcmd.model.DataSet;
-import ua.com.juja.sqlcmd.model.DataSetImpl;
+import ua.com.juja.sqlcmd.model.impl.DataSetImpl;
 
 import java.sql.*;
 
@@ -14,10 +14,6 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
     private static final Logger LOG = Logger.getLogger(PostgresJDBCImpl.class);
     private Connection connection;
     private ResultSet resultSet;
-    private PreparedStatement selectTableNames;
-    private PreparedStatement selectTable;
-    private PreparedStatement insertTable;
-    private PreparedStatement cleareTable;
 
     public PostgresJDBCImpl(String database, String userName, String password) {
         try {
@@ -44,16 +40,47 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
     }
 
     @Override
+    public void update(String tableName, int id, DataSet newValue) {
+        try {
+            PreparedStatement update = connection.prepareStatement("UPDATE public." + tableName + " SET name = ?, password = ? WHERE id = ?");
+            update.setString(1, newValue.get(NAME).toString());
+            update.setString(2, newValue.get(PASSWORD).toString());
+            update.setInt(3, id);
+            update.executeUpdate();
+            update.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Set<String> getTableColumns(String tableName) {
+
+
+        //TODO MOCK
+        Set<String> columnNames = new LinkedHashSet<>();
+        columnNames.add("name");
+        columnNames.add("password");
+        columnNames.add("id");
+        return columnNames;
+    }
+
+    @Override
+    public boolean isConnected() {
+        return connection != null;
+    }
+
+    @Override
     public List<DataSet> getTableData(String tableName) {
         List<DataSet> list = new LinkedList<>();
         try {
-            selectTable = connection.prepareStatement("SELECT * FROM public." + tableName);
+            PreparedStatement selectTable = connection.prepareStatement("SELECT * FROM public." + tableName);
             resultSet = selectTable.executeQuery();
             while (resultSet.next()) {
                 DataSet dataSet = new DataSetImpl();
-                String name = resultSet.getString("name");
-                String password = resultSet.getString("password");
-                dataSet.put(name, password);
+                dataSet.put(NAME, resultSet.getString(NAME));
+                dataSet.put(PASSWORD, resultSet.getString(PASSWORD));
+                dataSet.put(ID, resultSet.getInt(ID));
                 list.add(dataSet);
             }
             resultSet.close();
@@ -65,9 +92,17 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
 
     @Override
     public Set<String> getTableNames() {
-        Set<String> result = new HashSet<>();
+        Set<String> result = new TreeSet<>((o1, o2) -> {
+            if (o1.charAt(0) < o2.charAt(0)) {
+                return 1;
+            }
+            if (o1.charAt(0) > o2.charAt(0)) {
+                return -1;
+            }
+            return 0;
+        });
         try {
-            selectTableNames = connection.prepareStatement("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'");
+            PreparedStatement selectTableNames = connection.prepareStatement("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'");
             resultSet = selectTableNames.executeQuery();
             while (resultSet.next()) {
                 result.add(resultSet.getString("table_name"));
@@ -81,13 +116,20 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
 
     @Override
     public void create(String tableName, DataSet input) {
+        PreparedStatement insertTable;
         try {
-            insertTable = connection.prepareStatement("INSERT INTO public." + tableName + " (name, password) VALUES (? , ?)");
-            for (Map.Entry<String, Object> iter : input.getSetEntry()) {
-                insertTable.setString(1, iter.getKey());
-                insertTable.setString(2, iter.getValue().toString());
-                insertTable.executeUpdate();
+            if (input.getNames().contains(ID)) {
+                insertTable = connection.prepareStatement("INSERT INTO public." + tableName + " (id, name, password) VALUES (? , ? , ?)");
+                insertTable.setInt(1, (int) input.get(ID));
+                insertTable.setString(2, input.get(NAME).toString());
+                insertTable.setString(3, input.get(PASSWORD).toString());
+            } else {
+                insertTable = connection.prepareStatement("INSERT INTO public." + tableName + " (name, password) VALUES (? , ?)");
+                insertTable.setString(1, input.get(NAME).toString());
+                insertTable.setString(2, input.get(PASSWORD).toString());
             }
+            insertTable.executeUpdate();
+            insertTable.close();
         } catch (SQLException e) {
             LOG.error("create(String tableName, DataSet input) -> " + e.getMessage());
         }
@@ -96,8 +138,9 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
     @Override
     public void clear(String tableName) {
         try {
-            cleareTable = connection.prepareStatement("TRUNCATE TABLE " + tableName + " RESTART IDENTITY CASCADE");
-            cleareTable.execute();
+            PreparedStatement clearTable = connection.prepareStatement("TRUNCATE TABLE public." + tableName + " RESTART IDENTITY CASCADE");
+            clearTable.execute();
+            clearTable.close();
         } catch (SQLException e) {
             LOG.error("clear(String tableName) -> " + e.getMessage());
         }

@@ -4,7 +4,7 @@ package ua.com.juja.sqlcmd.dataset;
 import org.junit.Before;
 import org.junit.Test;
 import ua.com.juja.sqlcmd.model.DataSet;
-import ua.com.juja.sqlcmd.model.DataSetImpl;
+import ua.com.juja.sqlcmd.model.impl.DataSetImpl;
 
 import java.util.ArrayList;
 
@@ -21,36 +21,40 @@ public class TestDataSet {
 
     @Before
     public void init() {
-        dataSet.put("Alex", "12345");
+        dataSet.put("name", "Alex");
+        dataSet.put("password", "12345");
+        dataSet.put("id", 12);
     }
 
     @Test
     public void testPut() {
-        assertTrue(dataSet.getNames().contains("Alex"));
-        assertTrue(dataSet.getValues().contains("12345"));
+        assertEquals("[name, password, id]", dataSet.getNames().toString());
+        assertEquals("[Alex, 12345, 12]", dataSet.getValues().toString());
     }
 
 
     @Test
     public void testGetValues() {
-        List<String> strings = new ArrayList<>();
+        List<Object> strings = new ArrayList<>();
+        strings.add("Alex");
         strings.add("12345");
+        strings.add(12);
         assertEquals(strings, dataSet.getValues());
     }
 
     @Test
-    public  void testGetNames(){
+    public void testGetNames() {
         Set<String> strings = new HashSet<>();
-        strings.add("Alex");
+        strings.add("name");
+        strings.add("password");
+        strings.add("id");
         assertEquals(strings, dataSet.getNames());
     }
 
     @Test
-    public  void testGet(){
-
-        assertEquals("12345", dataSet.get("Alex"));
+    public void testGet() {
+        assertEquals("Alex", dataSet.get("name"));
+        assertEquals("12345", dataSet.get("password"));
+        assertEquals(12, dataSet.get("id"));
     }
-
-
-
 }

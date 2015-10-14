@@ -1,4 +1,7 @@
-package ua.com.juja.sqlcmd.model;
+package ua.com.juja.sqlcmd.model.sample;
+
+import ua.com.juja.sqlcmd.model.DataSet;
+import ua.com.juja.sqlcmd.model.DatabaseManager;
 
 import java.util.*;
 
@@ -49,9 +52,9 @@ public class InMemoryDatabaseManager implements DatabaseManager {
     @Override
     public void update(String tableName, int id, DataSet newValue) {
         for (DataSet dataSet : get(tableName)) {
-//            if (dataSet.get("id") == id) {
-//                dataSet.updateFrom(newValue);
-//            }
+            if (dataSet.get("id").equals(id)) {
+                dataSet.updateFrom(newValue);
+            }
         }
     }
 
