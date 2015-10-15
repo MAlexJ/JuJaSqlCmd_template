@@ -55,14 +55,21 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
 
     @Override
     public Set<String> getTableColumns(String tableName) {
-
-
-        //TODO MOCK
-        Set<String> columnNames = new LinkedHashSet<>();
-        columnNames.add("name");
-        columnNames.add("password");
-        columnNames.add("id");
-        return columnNames;
+        PreparedStatement selectTable;
+        LinkedList<String> linkedList = new LinkedList<>();
+        try {
+            selectTable = connection.prepareStatement("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME =  '" + tableName + "'");
+            resultSet = selectTable.executeQuery();
+            while (resultSet.next()) {
+                linkedList.add(resultSet.getString(1));
+            }
+            linkedList.add(linkedList.getFirst());
+            linkedList.removeFirst();
+            resultSet.close();
+        } catch (SQLException e) {
+            LOG.error("List<DataSet> getTableData(String tableName) -> " + e.getMessage());
+        }
+        return new LinkedHashSet<>(Collections.asLifoQueue(linkedList));
     }
 
     @Override
@@ -72,9 +79,10 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
 
     @Override
     public List<DataSet> getTableData(String tableName) {
+        PreparedStatement selectTable;
         List<DataSet> list = new LinkedList<>();
         try {
-            PreparedStatement selectTable = connection.prepareStatement("SELECT * FROM public." + tableName);
+            selectTable = connection.prepareStatement("SELECT * FROM public." + tableName);
             resultSet = selectTable.executeQuery();
             while (resultSet.next()) {
                 DataSet dataSet = new DataSetImpl();
@@ -92,6 +100,7 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
 
     @Override
     public Set<String> getTableNames() {
+        PreparedStatement selectTableNames;
         Set<String> result = new TreeSet<>((o1, o2) -> {
             if (o1.charAt(0) < o2.charAt(0)) {
                 return 1;
@@ -102,7 +111,7 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
             return 0;
         });
         try {
-            PreparedStatement selectTableNames = connection.prepareStatement("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'");
+            selectTableNames = connection.prepareStatement("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'");
             resultSet = selectTableNames.executeQuery();
             while (resultSet.next()) {
                 result.add(resultSet.getString("table_name"));

@@ -11,6 +11,7 @@ import ua.com.juja.sqlcmd.view.View;
 public class MainController extends AbstractController {
     private String request;
     private Command[] commandCollection;
+    private boolean flagExit = true;
 
     public MainController(View view, DatabaseManager manager, Command[] commands) {
         this.view = view;
@@ -20,25 +21,30 @@ public class MainController extends AbstractController {
 
     @Override
     public void run() {
-        try {
-            greeting();
-            while (true) {
+        init();
+        while (flagExit) {
+            try {
+                boolean flag = true;
                 request = view.read();
                 if (!request.isEmpty()) {
                     for (Command iter : commandCollection) {
                         if (iter.canProcess(request)) {
                             LOG.debug(iter.getClass());
                             iter.process(request);
+                            flag = false;
                         }
                     }
+                    if (flag) {
+                        unsupported(request);
+                    }
                 }
-                commandLine();
+                view.write("Введи команду (или help для помощи):");
+            } catch (ExitException e) {
+                //TODO: close connection
+                flagExit = false;
+            } catch (JuJaSqlCmdException e) {
+                LOG.error(e.getMessage());
             }
-        } catch (ExitException e) {
-            //TODO: close connection
-            System.exit(0);
-        } catch (JuJaSqlCmdException e) {
-            LOG.error(e.getMessage());
         }
     }
 }

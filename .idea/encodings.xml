@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/src/ua/com/juja/sqlcmd/controller/Main.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/ua/com/juja/sqlcmd/controller/command/AbstractCommand.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/com/juja/sqlcmd/controller/command/impl/Clear.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/com/juja/sqlcmd/controller/command/impl/Connect.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/com/juja/sqlcmd/controller/command/impl/Exit.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/com/juja/sqlcmd/controller/command/impl/Help.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/com/juja/sqlcmd/controller/command/impl/Tables.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/com/juja/sqlcmd/controller/controller/AbstractController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/com/juja/sqlcmd/controller/controller/impl/MainController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/com/juja/sqlcmd/view/View.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ua/com/juja/sqlcmd/view/impl/Console.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/test/ua/com/juja/sqlcmd/integration/ConsoleMock.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/test/ua/com/juja/sqlcmd/integration/IntegrationTest.java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

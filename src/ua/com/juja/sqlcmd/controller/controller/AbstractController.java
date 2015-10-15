@@ -12,20 +12,13 @@ public abstract class AbstractController {
 
     public abstract void run();
 
-    protected void greeting() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("*******************************************" + "\n");
-        sb.append("***          Console Application        ***" + "\n");
-        sb.append("*******************************************" + "\n");
-        sb.append("Commando \"help\" - FAQ" + "\n");
-        sb.append("Commando \"exit\" - exit from the program" + "\n");
-        sb.append("\n");
-        sb.append("Enter commando and then press enter.........." + "\n");
-        view.write(sb.toString());
+    protected void init() {
+        view.write("Привет юзер!");
+        view.write("Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password");
     }
 
-    protected void commandLine() {
-        view.write("Enter commando and then press enter..........");
+    protected void unsupported(String str){
+        view.write("Несуществующая команда: "+str);
     }
 
 }
