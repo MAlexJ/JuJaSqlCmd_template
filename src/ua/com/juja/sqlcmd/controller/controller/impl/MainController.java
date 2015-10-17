@@ -34,11 +34,9 @@ public class MainController extends AbstractController {
                             flag = false;
                         }
                     }
-                    if (flag) {
-                        unsupported(request);
-                    }
+                    if (flag) unsupported(request);
                 }
-                view.write("Введи команду (или help для помощи):");
+                readLine();
             } catch (ExitException e) {
                 //TODO: close connection
                 flagExit = false;

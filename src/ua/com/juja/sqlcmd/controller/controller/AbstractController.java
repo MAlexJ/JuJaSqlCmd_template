@@ -17,8 +17,12 @@ public abstract class AbstractController {
         view.write("Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password");
     }
 
-    protected void unsupported(String str){
-        view.write("Несуществующая команда: "+str);
+    protected void readLine() {
+        view.write("Введи команду (или help для помощи):");
+    }
+
+    protected void unsupported(String str) {
+        view.write("Несуществующая команда: " + str);
     }
 
 }
