@@ -67,4 +67,9 @@ public class InMemoryDatabaseManager implements DatabaseManager {
     public boolean isConnected() {
         return true;
     }
+
+    @Override
+    public boolean close() {
+        return true;
+    }
 }

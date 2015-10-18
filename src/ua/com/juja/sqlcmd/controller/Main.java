@@ -2,6 +2,7 @@ package ua.com.juja.sqlcmd.controller;
 
 import ua.com.juja.sqlcmd.controller.command.*;
 import ua.com.juja.sqlcmd.controller.command.impl.*;
+import ua.com.juja.sqlcmd.controller.controller.Controller;
 import ua.com.juja.sqlcmd.controller.controller.impl.MainController;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.model.sample.JDBCDatabaseManager;
@@ -17,14 +18,14 @@ public class Main {
         Command[] commands = new Command[]{
                 new Help(view),
                 new Exit(view),
-                new Connect(view),
-                new Create(view),
-                new Find(view),
-                new Tables(view),
+                new Connect(manager, view),
+                new Create(manager, view),
+                new Find(manager,view),
+                new Tables(manager, view),
                 new Clear(manager, view)
         };
 
-        MainController controller = new MainController(view, manager, commands);
+        Controller controller = new MainController(view, manager, commands);
 
         controller.run();
     }

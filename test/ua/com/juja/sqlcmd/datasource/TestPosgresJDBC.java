@@ -14,9 +14,10 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestPosgresJDBC implements Constants{
+public class TestPosgresJDBC implements Constants {
 
     public final String CONNECTING_URL = "sqlcmd";
     public final String USER = "postgres";
@@ -29,7 +30,8 @@ public class TestPosgresJDBC implements Constants{
     @Before
     public void init() {
         System.out.println("Open connection");
-        postgresJDBC = new PostgresJDBCImpl(CONNECTING_URL, USER, PASSWORD);
+        postgresJDBC = new PostgresJDBCImpl();
+        postgresJDBC.connect(CONNECTING_URL, USER, PASSWORD);
         result = new DataSetImpl();
         result.put("name", "Alex");
         result.put("password", "12345");
@@ -76,7 +78,7 @@ public class TestPosgresJDBC implements Constants{
         postgresJDBC.create(TABLE_NAME, result);
         DataSet result = getFirstElemList(postgresJDBC.getTableData(TABLE_NAME));
 
-        int id = (int)result.get(ID);
+        int id = (int) result.get(ID);
 
         DataSet input = new DataSetImpl();
         input.put("name", "Max");
@@ -85,6 +87,12 @@ public class TestPosgresJDBC implements Constants{
 
         postgresJDBC.update(TABLE_NAME, id, input);
         assertEquals(input.getValues(), getFirstElemListGetValue(postgresJDBC.getTableData(TABLE_NAME)));
+    }
+
+
+    @Test
+    public void testClose() {
+        assertTrue(postgresJDBC.close());
     }
 
     public DataSet getFirstElemList(List<DataSet> dataSets) {
@@ -101,5 +109,6 @@ public class TestPosgresJDBC implements Constants{
         DataSet dataSet = dataSets.get(0);
         return dataSet.getNames();
     }
+
 
 }

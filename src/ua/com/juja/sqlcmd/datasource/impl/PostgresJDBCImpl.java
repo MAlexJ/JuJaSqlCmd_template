@@ -15,13 +15,15 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
     private Connection connection;
     private ResultSet resultSet;
 
-    public PostgresJDBCImpl(String database, String userName, String password) {
+    @Override
+    public void connect(String database, String userName, String password) {
         try {
             Class.forName(DRIVER_POSTGRES);
             connection = DriverManager.getConnection(CONNECTING_URL + database, userName, password);
         } catch (SQLException | ClassNotFoundException e) {
             LOG.error("PostgresJDBCImpl(String database, String userName, String password) -> " + e.getMessage());
         }
+
     }
 
     @Override
@@ -129,7 +131,8 @@ public class PostgresJDBCImpl implements PostgresJDBC, Constants {
         try {
             if (input.getNames().contains(ID)) {
                 insertTable = connection.prepareStatement("INSERT INTO public." + tableName + " (id, name, password) VALUES (? , ? , ?)");
-                insertTable.setInt(1, (int) input.get(ID));
+                //  insertTable.setInt(1, (int) input.get(ID));
+                insertTable.setInt(1, Integer.parseInt(input.get(ID).toString()));
                 insertTable.setString(2, input.get(NAME).toString());
                 insertTable.setString(3, input.get(PASSWORD).toString());
             } else {

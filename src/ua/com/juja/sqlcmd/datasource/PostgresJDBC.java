@@ -24,4 +24,5 @@ public interface PostgresJDBC {
 
     boolean isConnected();
 
+    void connect(String database, String userName, String password);
 }

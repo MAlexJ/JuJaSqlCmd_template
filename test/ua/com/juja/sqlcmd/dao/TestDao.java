@@ -32,6 +32,7 @@ public class TestDao {
         dao.update("update", id, dataSet);
         dao.getTableColumns("getTableColumns");
         dao.isConnected();
+        dao.close();
 
         //Compare
         verify(dao).clear("clear");
@@ -42,5 +43,6 @@ public class TestDao {
         verify(dao).update("update", id, dataSet);
         verify(dao).getTableColumns("getTableColumns");
         verify(dao).isConnected();
+        verify(dao).close();
     }
 }

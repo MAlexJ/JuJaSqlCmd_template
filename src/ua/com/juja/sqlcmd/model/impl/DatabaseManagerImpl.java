@@ -66,4 +66,9 @@ public class DatabaseManagerImpl implements DatabaseManager {
     public boolean isConnected() {
         return this.dao.isConnected();
     }
+
+    @Override
+    public boolean close() {
+        return this.dao.close();
+    }
 }

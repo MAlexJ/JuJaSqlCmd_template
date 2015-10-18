@@ -2,15 +2,12 @@ package ua.com.juja.sqlcmd.controller.controller;
 
 
 import org.apache.log4j.Logger;
-import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
 public abstract class AbstractController {
     public static final Logger LOG = Logger.getLogger(AbstractController.class);
-    protected View view;
-    protected DatabaseManager manager;
+    public View view;
 
-    public abstract void run();
 
     protected void init() {
         view.write("Привет юзер!");
@@ -24,5 +21,15 @@ public abstract class AbstractController {
     protected void unsupported(String str) {
         view.write("Несуществующая команда: " + str);
     }
+
+    protected void connectionCheck(String str) {
+        if (!str.equals("help")) {
+            if (str.startsWith("connect|") || str.startsWith("create|")|| str.startsWith("clear|")) {
+                return;
+            }
+            view.write("Вы не можете пользоваться командой \'" + str + "\' пока не подключитесь с помощью комманды connect|databaseName|userName|password");
+        }
+    }
+
 
 }

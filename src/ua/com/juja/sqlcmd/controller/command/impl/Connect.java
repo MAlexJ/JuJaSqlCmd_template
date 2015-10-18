@@ -2,10 +2,16 @@ package ua.com.juja.sqlcmd.controller.command.impl;
 
 import ua.com.juja.sqlcmd.controller.command.AbstractCommand;
 import ua.com.juja.sqlcmd.controller.command.Command;
+import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
+import java.util.ArrayList;
+
 public class Connect extends AbstractCommand implements Command {
-    public Connect(View view) {
+
+
+    public Connect(DatabaseManager manager, View view) {
+        this.manager = manager;
         this.view = view;
     }
 
@@ -17,5 +23,10 @@ public class Connect extends AbstractCommand implements Command {
     @Override
     public void process(String command) {
         LOG.debug(getClass() + " " + command);
+        if (verificationConnect(command)) {
+            String[] dataInput = stringToArrayString(command);
+            this.manager.connect(dataInput[1], dataInput[2], dataInput[3]);
+            view.write("Успех!");
+        }
     }
 }

@@ -24,12 +24,13 @@ public class Clear extends AbstractCommand implements Command {
 
     @Override
     public void process(String command) {
-        String[] data = command.split("\\|");
-        if (data.length != 2) {
+        String[] data = splitToArray(command);
+        if (data.length == 1 || data.length == 3) {
             throw new IllegalArgumentException("Формат команды 'clear|tableName', а ты ввел: " + command);
         }
-        manager.clear(data[1]);
-
-        view.write(String.format("Таблица %s была успешно очищена.", data[1]));
+        if (verificationClear(command)) {
+            manager.clear(data[1]);
+            view.write(String.format("Таблица %s была успешно очищена.", data[1]));
+        }
     }
 }

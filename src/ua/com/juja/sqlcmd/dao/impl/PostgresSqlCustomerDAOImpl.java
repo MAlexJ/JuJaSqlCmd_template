@@ -13,12 +13,12 @@ import java.util.Set;
 
 public class PostgresSqlCustomerDAOImpl implements CustomerDAO {
 
-    private PostgresJDBC postgresJDBC;
+    private PostgresJDBC postgresJDBC = new PostgresJDBCImpl();
 
 
     @Override
     public void connect(String database, String userName, String password) {
-        this.postgresJDBC = new PostgresJDBCImpl(database, userName, password);
+        this.postgresJDBC.connect(database, userName, password);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class PostgresSqlCustomerDAOImpl implements CustomerDAO {
 
     @Override
     public boolean close() {
-        return postgresJDBC.close();
+        return this.postgresJDBC.close();
     }
 
     @Override
@@ -59,8 +59,6 @@ public class PostgresSqlCustomerDAOImpl implements CustomerDAO {
 
     @Override
     public boolean isConnected() {
-        return this.postgresJDBC.isConnected();
+        return postgresJDBC.isConnected();
     }
-
-
 }
