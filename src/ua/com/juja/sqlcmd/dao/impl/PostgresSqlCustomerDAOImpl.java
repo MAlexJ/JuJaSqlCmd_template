@@ -15,7 +15,6 @@ public class PostgresSqlCustomerDAOImpl implements CustomerDAO {
 
     private PostgresJDBC postgresJDBC = new PostgresJDBCImpl();
 
-
     @Override
     public void connect(String database, String userName, String password) {
         this.postgresJDBC.connect(database, userName, password);
@@ -27,8 +26,8 @@ public class PostgresSqlCustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public List<DataSet> getTableData(String tablName) {
-        return this.postgresJDBC.getTableData(tablName);
+    public List<DataSet> getTableData(String tableName) {
+        return this.postgresJDBC.getTableData(tableName);
     }
 
     @Override

@@ -26,12 +26,9 @@ public class Create extends AbstractCommand implements Command {
     @Override
     public void process(String command) {
         LOG.debug(getClass() + " " + command);
-
         if (verificationCreate(command)) {
             String[] dataInput = stringToArrayString(command);
-
             DataSet dataSet = new DataSetImpl();
-
             for (int i = 2; i < dataInput.length; i += 2) {
                 int j = i;
                 dataSet.put(dataInput[j++], dataInput[j]);
@@ -39,6 +36,5 @@ public class Create extends AbstractCommand implements Command {
             this.manager.create(dataInput[1], dataSet);
             printCreate(dataSet, dataInput[1]);
         }
-
     }
 }

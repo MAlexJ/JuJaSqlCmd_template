@@ -17,11 +17,7 @@ public class Console implements View {
     public String read() {
         String inputStream = null;
         try {
-
             inputStream = new BufferedReader(new InputStreamReader(System.in)).readLine();
-
-//            Scanner scanner = new Scanner(System.in);
-//            return scanner.nextLine();
         } catch (NoSuchElementException e) {
             return null;
         } catch (IOException e) {

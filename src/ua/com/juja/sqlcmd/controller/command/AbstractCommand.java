@@ -33,7 +33,6 @@ public abstract class AbstractCommand implements Command, Constants {
         if (arrayStr.length == 2) {
             return true;
         }
-
         return false;
     }
 
@@ -57,7 +56,6 @@ public abstract class AbstractCommand implements Command, Constants {
         if (data.length == 2) {
             return true;
         }
-
         view.write("Неудача! по причине: Формат команды 'clear|tableName', а ты ввел: " + str);
         view.write("Повтори попытку.");
         return false;
@@ -87,8 +85,6 @@ public abstract class AbstractCommand implements Command, Constants {
     }
 
     protected void printCreate(DataSet dataSet, String str) {
-
-
         view.write("Запись {names:[id, name, password], values:[" + dataSet.get(ID) + ", " + dataSet.get(NAME) + ", " + dataSet.get(PASSWORD) + "]} была успешно создана в таблице \'" + str + "\'.");
     }
 

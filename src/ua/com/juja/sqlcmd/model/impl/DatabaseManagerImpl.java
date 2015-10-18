@@ -19,7 +19,6 @@ public class DatabaseManagerImpl implements DatabaseManager {
         if (daoFactory != null) {
             this.dao = daoFactory.getCustomerDAO();
         }
-
     }
 
     @Override

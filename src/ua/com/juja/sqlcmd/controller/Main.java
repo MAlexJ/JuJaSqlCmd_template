@@ -14,19 +14,16 @@ public class Main {
     public static void main(String[] args) {
         View view = new Console();
         DatabaseManager manager = new JDBCDatabaseManager();
-
         Command[] commands = new Command[]{
                 new Help(view),
                 new Exit(view),
                 new Connect(manager, view),
                 new Create(manager, view),
-                new Find(manager,view),
+                new Find(manager, view),
                 new Tables(manager, view),
                 new Clear(manager, view)
         };
-
         Controller controller = new MainController(view, manager, commands);
-
         controller.run();
     }
 }

@@ -29,7 +29,6 @@ public class TestPosgresJDBC implements Constants {
 
     @Before
     public void init() {
-        System.out.println("Open connection");
         postgresJDBC = new PostgresJDBCImpl();
         postgresJDBC.connect(CONNECTING_URL, USER, PASSWORD);
         result = new DataSetImpl();
@@ -41,7 +40,7 @@ public class TestPosgresJDBC implements Constants {
 
     @After
     public void close() {
-        System.out.println("Close connection -> " + postgresJDBC.close() + "\n");
+        postgresJDBC.close();
     }
 
 

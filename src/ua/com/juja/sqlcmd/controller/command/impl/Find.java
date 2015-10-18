@@ -32,12 +32,8 @@ public class Find extends AbstractCommand implements Command, Constants {
             List<DataSet> tableData = manager.getTableData(strings[1]);
             printStartFind();
             if (!tableData.isEmpty()) {
-                for (DataSet iter : tableData) {
-                    StringBuilder builder = new StringBuilder();
-                    builder.append("|" + iter.get(NAME).toString());
-                    builder.append("|" + iter.get(PASSWORD));
-                    builder.append("|" + iter.get(ID) + "|");
-                    view.write(builder.toString());
+                for (DataSet dataSet : tableData) {
+                    view.write(("|" + dataSet.get(NAME).toString()) + "|" + dataSet.get(PASSWORD) + "|" + dataSet.get(ID) + "|");
                 }
             }
             printEndFind();

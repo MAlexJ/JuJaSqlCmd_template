@@ -25,6 +25,5 @@ public class Tables extends AbstractCommand implements Command {
                 Set<String> tableNames = manager.getTableNames();
                 view.write(tableNames.toString());
         }
-
     }
 }
